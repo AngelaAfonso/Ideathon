@@ -18,7 +18,7 @@ namespace ChatBotTeste.Controllers
         [HttpPost]
         public IActionResult Add([FromForm] AplicacaoViewModel aplicacaoview)
         {
-            var aplicacao = new Aplicacao(aplicacaoview.url, aplicacaoview.NomeAplicacao);
+            var aplicacao = new Aplicacao(aplicacaoview.url, aplicacaoview.NomeAplicacao, aplicacaoview.TimeDev);
             _iaplicacaoRepository.Add(aplicacao);
             return Ok(aplicacao);
         }
@@ -45,7 +45,7 @@ namespace ChatBotTeste.Controllers
         [HttpPut("{id}")]
         public IActionResult PutByID(int id, AplicacaoViewModel aplicacaoView)
         {
-            var aplicacao = new Aplicacao(aplicacaoView.url, aplicacaoView.NomeAplicacao);
+            var aplicacao = new Aplicacao(aplicacaoView.url, aplicacaoView.NomeAplicacao, aplicacaoView.TimeDev);
             try
             {
                 _iaplicacaoRepository.PutByID(id, aplicacao);
