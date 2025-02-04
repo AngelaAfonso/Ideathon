@@ -1,6 +1,6 @@
 # :computer: Projeto Ideathon
 ## :pushpin: Automação de Tickets por Aplicação
-#### O Projeto tem como objetivo criar um chatbot que pode ser adicionado a qualquer aplicação web, permitindo que o usuario abra um ticket do ServiceNow para a equipe especifica de aplicação
+#### O Projeto tem como objetivo criar um chatbot que pode ser adicionado a qualquer aplicação web, permitindo que o usuario abra um ticket do ServiceNow para a equipe especifica da aplicação
 ---
 ### Tecnologias Usadas na Construção do Projeto
 ![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
