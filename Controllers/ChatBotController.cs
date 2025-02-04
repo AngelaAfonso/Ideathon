@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ChatBotTeste.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ChatbotApi.Controllers
 {
@@ -6,6 +7,13 @@ namespace ChatbotApi.Controllers
     [Route("api/chatbot")]
     public class ChatbotController : ControllerBase
     {
+        private readonly IAplicacaoRepository _iaplicacaoRepository;
+
+        public ChatbotController(IAplicacaoRepository iaplicacaoRepository)
+        {
+            _iaplicacaoRepository = iaplicacaoRepository ?? throw new ArgumentNullException(nameof(iaplicacaoRepository));
+        }
+
         // Método para processar mensagens do usuário
         [HttpPost("message")]
         public IActionResult ProcessMessage([FromBody] UserMessage message)
@@ -20,7 +28,18 @@ namespace ChatbotApi.Controllers
 
             if (lowerMessage.Contains("abrir ticket"))
             {
-                return "Você gostaria de abrir um ticket? Por favor, digite seu nome e descrição separados por vírgula.";
+                /*
+                adicionar implementar a validação de url, pra descobir qual a aplicação o usuario esta
+                 */
+                var urlDoUsuario = "site que o usuario esta"; // descobrir como pegar esse dado
+                var nomeAplicacao = _iaplicacaoRepository.GetNomeDaAplicacaoPorURL(urlDoUsuario);
+                var timeDev = _iaplicacaoRepository.GetTImeDevPorURL(urlDoUsuario);
+                if(urlDoUsuario == null)
+                {
+                    return "Aplication Not Found";
+                }
+
+                return $"Você gostaria de abrir um ticket sobre a aplicacao {nomeAplicacao} para o time {timeDev}?\nPor favor, digite seu nome e descrição separados por vírgula.";
             }
             else if (lowerMessage.Contains(","))
             {

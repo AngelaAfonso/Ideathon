@@ -4,5 +4,7 @@
     {
         public string url { get; set; }
         public string NomeAplicacao { get; set; }
+
+        public string TimeDev {  get; set; }
     }
 }

@@ -11,12 +11,15 @@ namespace ChatBotTeste.Models
         public string? url { get; set; }
         public string? NomeAplicacao { get; set; }
 
+        public string? TimeDev {  get; set; }
+
         public Aplicacao() { }
 
-        public Aplicacao(string url, string NomeAplicacao)
+        public Aplicacao(string url, string NomeAplicacao, string TimeDev)
         {
             this.url = url;
             this.NomeAplicacao = NomeAplicacao;
+            this.TimeDev = TimeDev;
         }
     }
 }
