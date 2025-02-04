@@ -1,5 +1,5 @@
-﻿//const sendMessage = document.getElementById('send-message');
-//const userInput = document.getElementById('user-input');
+﻿const sendMessage = document.getElementById('send-message');
+const userInput = document.getElementById('user-input');
 
 // Função para enviar mensagens ao backend
 async function sendMessageToBackend(message) {
