@@ -40,6 +40,27 @@ namespace ChatBotTeste.Repositories
         {
             return _context.Aplicacao.Find(id);
         }
+        public IEnumerable<string> GetUrl()
+        {
+            return _context.Aplicacao.Select(a => a.url).ToList();
+        }
+
+
+        public string GetNomeDaAplicacaoPorURL(string url)
+        {
+            return _context.Aplicacao
+                           .Where(a => a.url == url)
+                           .Select(a => a.NomeAplicacao)
+                           .FirstOrDefault();
+        }
+
+        public string GetTimeDevPorURL(string url)
+        {
+            return _context.Aplicacao
+                           .Where(a => a.url == url)
+                           .Select(a => a.TimeDev)
+                           .FirstOrDefault();
+        }
 
         public string GetNomeDaAplicacaoPorURL(string url)
         {
@@ -71,6 +92,7 @@ namespace ChatBotTeste.Repositories
             }
             aplicacaoExiste.url = aplicacao.url;
             aplicacaoExiste.NomeAplicacao = aplicacao.NomeAplicacao;
+            aplicacaoExiste.TimeDev = aplicacao.TimeDev;
 
             _context.Aplicacao.Update(aplicacaoExiste);
             _context.SaveChanges();

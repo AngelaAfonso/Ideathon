@@ -35,6 +35,33 @@ namespace ChatBotTeste.Controllers
         {
             var aplicacao = _iaplicacaoRepository.GetByID(id);
 
+            if (aplicacao == null)
+            {
+                return NotFound();
+            }
+            return Ok(aplicacao);
+        }
+
+        [HttpGet("GetNomeDaAplicacao")] 
+        public IActionResult GetNomeDaAplicacaoPorURL([FromQuery]string url)
+        {
+            var decodeUrl = System.Web.HttpUtility.UrlDecode(url); // Decodificar URL
+            var aplicacao = _iaplicacaoRepository.GetNomeDaAplicacaoPorURL(decodeUrl);
+
+            if (aplicacao == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(aplicacao);
+        }
+
+        [HttpGet("GetTimeDev")]
+        public IActionResult GetTimeDevPorURL([FromQuery]string url)
+        {
+            var decodeUrl = System.Web.HttpUtility.UrlDecode(url);
+            var aplicacao = _iaplicacaoRepository.GetTimeDevPorURL(decodeUrl);
+
             if(aplicacao == null)
             {
                 return NotFound();
