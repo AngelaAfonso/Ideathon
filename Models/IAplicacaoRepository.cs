@@ -10,7 +10,7 @@
 
         string GetNomeDaAplicacaoPorURL(string url);
 
-        string GetTImeDevPorURL(string url);
+        string GetTimeDevPorURL(string url);
         Aplicacao? GetByID(int id);
         void PutByID(int id, Aplicacao aplicacao);
         void DeleteByID(int id);

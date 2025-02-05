@@ -33,7 +33,7 @@ namespace ChatbotApi.Controllers
                  */
                 var urlDoUsuario = "site que o usuario esta"; // descobrir como pegar esse dado
                 var nomeAplicacao = _iaplicacaoRepository.GetNomeDaAplicacaoPorURL(urlDoUsuario);
-                var timeDev = _iaplicacaoRepository.GetTImeDevPorURL(urlDoUsuario);
+                var timeDev = _iaplicacaoRepository.GetTimeDevPorURL(urlDoUsuario);
                 if(urlDoUsuario == null)
                 {
                     return "Aplication Not Found";

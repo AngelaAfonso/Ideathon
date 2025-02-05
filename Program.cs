@@ -35,11 +35,20 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Adicionando Logs de Error
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 // Construindo o app
 var app = builder.Build();
 
-// Configuração do pipeline HTTP, se tiver
-
+// Configurando swagger
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Minha API v1");
+    c.RoutePrefix = string.Empty; // Permite acessar via /
+});
 // Ativando o Swagger apenas no ambiente de desenvolvimento
 if (app.Environment.IsDevelopment())
 {
@@ -54,6 +63,8 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
     RequestPath = ""
 });
+
+app.UseExceptionHandler("/error"); // Handles exceptions globally
 
 // Ativando e aplicando tudo
 app.UseHttpsRedirection();
