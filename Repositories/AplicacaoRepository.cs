@@ -62,6 +62,27 @@ namespace ChatBotTeste.Repositories
                            .FirstOrDefault();
         }
 
+        public string GetNomeDaAplicacaoPorURL(string url)
+        {
+            return _context.Aplicacao
+                           .Where(a => a.url == url)
+                           .Select(a => a.NomeAplicacao)
+                           .FirstOrDefault();
+        }
+
+        public string GetTImeDevPorURL(string url)
+        {
+            return _context.Aplicacao
+                           .Where(a => a.url == url)
+                           .Select(a => a.NomeAplicacao)
+                           .FirstOrDefault();
+        }
+
+        public IEnumerable<string> GetUrl()
+        {
+            return _context.Aplicacao.Select( a => a.url).ToList();
+        }
+
         public void PutByID(int id, Aplicacao aplicacao)
         {
             var aplicacaoExiste = _context.Aplicacao.Find(id);
