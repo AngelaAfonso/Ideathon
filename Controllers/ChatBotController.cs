@@ -40,16 +40,21 @@ namespace ChatbotApi.Controllers
                 // Pergunta sobre a abertura do ticket
                 return $"Você está na aplicação {nomeAplicacao}. \nGostaria de abrir um ticket para o time {timeDev}? Responda 'sim' ou 'não'.";
             }
-            else if (lowerMessage == "sim")
+            else if (lowerMessage == "abrir ticket")
+            {
+                return $"Você está na aplicação {nomeAplicacao}. \nGostaria de abrir um ticket para o time {timeDev}? Responda 'sim' ou 'não'.";
+            }
+            else if (lowerMessage == "sim" || lowerMessage == "s" || lowerMessage == "yes" || lowerMessage == "y")
             {
                 // Se o usuário disser 'sim', pede os dados do ticket
                 return "Por favor, digite seu nome e descrição do problema separados por vírgula.";
             }
-            else if (lowerMessage == "não")
+            else if (lowerMessage == "não" || lowerMessage == "nao" || lowerMessage == "no" || lowerMessage == "n")
             {
                 // Se o usuário disser 'não', o bot diz que o ticket não será aberto
                 return "Entendido. Não abriremos o ticket. Se mudar de ideia, é só me avisar!";
             }
+
             else if (lowerMessage.Contains(","))
             {
                 var parts = userMessage.Split(',');

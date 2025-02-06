@@ -2,6 +2,7 @@ const sendMessage = document.getElementById('send-message');
 const userInput = document.getElementById('user-input');
 const chatIcon = document.getElementById('chat-icon');
 const chatWindow = document.getElementById('chat-window');
+const closebutton = document.getElementById('close-chat');
 
 // Função para enviar mensagens ao backend
 async function sendMessageToBackend(message) {
@@ -30,7 +31,16 @@ function addMessage(sender, text) {
 // Evento para abrir e fechar o chat
 chatIcon.addEventListener("click", () => {
     chatWindow.classList.toggle("hidden");
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.innerHTML = '';
     startChat(); // Chama a função de inicializar a conversa ao clicar no ícone
+});
+
+// Fechar aplicacao pelo icone x
+closebutton.addEventListener("click", () => {
+    chatWindow.classList.toggle("hidden");
+    const chatMessages = document.getElementById('chat-messages');
+    chatMessages.innerHTML = ''; // limpando o chat pra inicializar de novo
 });
 
 // Função para iniciar a conversa automaticamente ao abrir o chat
