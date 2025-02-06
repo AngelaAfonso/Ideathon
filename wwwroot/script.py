@@ -36,7 +36,7 @@ CORS(app)
 # Histórico de mensagens
 history = []
 
-@app.route("/chat", methods=["POST"])
+@app.route("/api/chatbot/message", methods=["POST"])
 def chat():
     data = request.get_json()
     user_message = data.get("message", "")

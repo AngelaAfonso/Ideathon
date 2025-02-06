@@ -5,7 +5,7 @@ const chatWindow = document.getElementById('chat-window');
 
 // Função para enviar mensagens ao backend
 async function sendMessageToBackend(message) {
-    const response = await fetch('http://localhost:5000/chat', {  // Certifique-se de que a URL esteja correta
+    const response = await fetch('https://localhost:7009/api/chatbot/message', {  // Certifique-se de que a URL esteja correta
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -30,9 +30,21 @@ function addMessage(sender, text) {
 // Evento para abrir e fechar o chat
 chatIcon.addEventListener("click", () => {
     chatWindow.classList.toggle("hidden");
+    startChat(); // Chama a função de inicializar a conversa ao clicar no ícone
 });
 
-// Evento para enviar mensagens ao clicar no botão
+// Função para iniciar a conversa automaticamente ao abrir o chat
+async function startChat() {
+    // Verifica se a janela do chat está visível
+    if (!chatWindow.classList.contains("hidden")) {
+        // Envia uma mensagem vazia ao backend para obter a resposta inicial
+        const initialMessage = ""; // Envia uma mensagem vazia para inicializar o chat
+        const botResponse = await sendMessageToBackend(initialMessage); // Recebe a resposta inicial
+        addMessage('bot', botResponse); // Exibe a resposta do bot na tela
+    }
+}
+
+// Evento de clique no botão de envio de mensagem
 sendMessage.addEventListener('click', async () => {
     const userMessage = userInput.value.trim();
     if (userMessage !== '') {

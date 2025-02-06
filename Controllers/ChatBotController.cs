@@ -18,28 +18,37 @@ namespace ChatbotApi.Controllers
         [HttpPost("message")]
         public IActionResult ProcessMessage([FromBody] UserMessage message)
         {
-            string response = GetBotResponse(message.Text);
+            string response = GetBotResponse(message.message);
             return Ok(new { response });
         }
 
         private string GetBotResponse(string userMessage)
         {
             string lowerMessage = userMessage.ToLower();
+            // Obtendo dados de aplicação e time
+            var urlDoUsuario = "http://127.0.0.1:5500/ChatBotTeste/wwwroot/index.html"; // Temporário, para testes
+            var nomeAplicacao = _iaplicacaoRepository.GetNomeDaAplicacaoPorURL(urlDoUsuario);
+            var timeDev = _iaplicacaoRepository.GetTimeDevPorURL(urlDoUsuario);
 
-            if (lowerMessage.Contains("abrir ticket"))
+            if (string.IsNullOrEmpty(userMessage))
             {
-                /*
-                adicionar implementar a validação de url, pra descobir qual a aplicação o usuario esta
-                 */
-                var urlDoUsuario = "site que o usuario esta"; // descobrir como pegar esse dado
-                var nomeAplicacao = _iaplicacaoRepository.GetNomeDaAplicacaoPorURL(urlDoUsuario);
-                var timeDev = _iaplicacaoRepository.GetTimeDevPorURL(urlDoUsuario);
-                if(urlDoUsuario == null)
+                if (urlDoUsuario == null)
                 {
-                    return "Aplication Not Found";
+                    return "Aplicação não encontrada.";
                 }
 
-                return $"Você gostaria de abrir um ticket sobre a aplicacao {nomeAplicacao} para o time {timeDev}?\nPor favor, digite seu nome e descrição separados por vírgula.";
+                // Pergunta sobre a abertura do ticket
+                return $"Você está na aplicação {nomeAplicacao}. \nGostaria de abrir um ticket para o time {timeDev}? Responda 'sim' ou 'não'.";
+            }
+            else if (lowerMessage == "sim")
+            {
+                // Se o usuário disser 'sim', pede os dados do ticket
+                return "Por favor, digite seu nome e descrição do problema separados por vírgula.";
+            }
+            else if (lowerMessage == "não")
+            {
+                // Se o usuário disser 'não', o bot diz que o ticket não será aberto
+                return "Entendido. Não abriremos o ticket. Se mudar de ideia, é só me avisar!";
             }
             else if (lowerMessage.Contains(","))
             {
@@ -48,7 +57,7 @@ namespace ChatbotApi.Controllers
                 {
                     string nome = parts[0].Trim();
                     string descricao = parts[1].Trim();
-                    return $"Ticket NC01020 aberto com sucesso, no nome de {nome}, sobre {descricao}."; //sera alterado usando a automação com service now
+                    return $"Ticket NC01020 aberto com sucesso, no nome de {nome}, sobre {descricao}, para o time {timeDev}.";
                 }
                 else
                 {
@@ -60,11 +69,12 @@ namespace ChatbotApi.Controllers
                 return "Desculpe, não entendi sua mensagem. Você pode digitar 'abrir ticket' para iniciar.";
             }
         }
-    }
 
-    // Modelo para receber mensagens do frontend
-    public class UserMessage
-    {
-        public string Text { get; set; }
+
+        // Modelo para receber mensagens do frontend
+        public class UserMessage
+        {
+            public string message { get; set; }
+        }
     }
 }

@@ -25,7 +25,11 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "MyPolicy",
         policy =>
         {
-            policy.WithOrigins("http://localhost:8080", "http://localhost:8081", "http://localhost:5000", "http://localhost:5179")
+            policy.WithOrigins("http://localhost:8080", 
+                               "http://localhost:8081",
+                               "http://localhost:5000",
+                               "http://localhost:5179",
+                               "http://127.0.0.1:5500")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -67,9 +71,12 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseExceptionHandler("/error"); // Handles exceptions globally
 
 // Ativando e aplicando tudo
-app.UseHttpsRedirection();
+app.UseRouting();
 app.UseCors("MyPolicy");
+
+app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.UseStaticFiles(); // Permite servir arquivos HTML, CSS e JS
+
 app.Run();
