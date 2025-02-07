@@ -6,13 +6,17 @@ const closebutton = document.getElementById('close-chat');
 
 // Função para enviar mensagens ao backend
 async function sendMessageToBackend(message) {
+    const currentUrl = window.location.href; //pega url do site que esta o chatbot
     try {
         const response = await fetch('https://localhost:7009/api/chatbot/message', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ message: message }),
+            body: JSON.stringify({
+                message: message,
+                url: currentUrl // enviando a url pro backend
+            }),
         });
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);

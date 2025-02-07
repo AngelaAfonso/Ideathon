@@ -18,15 +18,15 @@ namespace ChatbotApi.Controllers
         [HttpPost("message")]
         public IActionResult ProcessMessage([FromBody] UserMessage message)
         {
-            string response = GetBotResponse(message.message);
+            string response = GetBotResponse(message.message, message.url);
             return Ok(new { response });
         }
 
-        private string GetBotResponse(string userMessage)
+        private string GetBotResponse(string userMessage, string urlDoUsuario)
         {
             string lowerMessage = userMessage.ToLower();
             // Obtendo dados de aplicação e time
-            var urlDoUsuario = "http://127.0.0.1:5500/ChatBotTeste/wwwroot/index.html"; // Temporário, para testes
+            // var urlDoUsuario = "http://127.0.0.1:5500/ChatBotTeste/wwwroot/index.html"; // Temporário, para testes
             var nomeAplicacao = _iaplicacaoRepository.GetNomeDaAplicacaoPorURL(urlDoUsuario);
             var timeDev = _iaplicacaoRepository.GetTimeDevPorURL(urlDoUsuario);
 
@@ -80,6 +80,7 @@ namespace ChatbotApi.Controllers
         public class UserMessage
         {
             public string message { get; set; }
+            public string url { get; set; }
         }
     }
 }
