@@ -26,7 +26,6 @@ namespace ChatbotApi.Controllers
         {
             string lowerMessage = userMessage.ToLower();
             // Obtendo dados de aplicação e time
-            // var urlDoUsuario = "http://127.0.0.1:5500/ChatBotTeste/wwwroot/index.html"; // Temporário, para testes
             var nomeAplicacao = _iaplicacaoRepository.GetNomeDaAplicacaoPorURL(urlDoUsuario);
             var timeDev = _iaplicacaoRepository.GetTimeDevPorURL(urlDoUsuario);
 
