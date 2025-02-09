@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Interface</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Botão flutuante para abrir o chat -->
+    <div id="chat-icon" class="chat-icon">💬</div>
+
+    <!-- Janela de chat -->
+    <div id="chat-window" class="chat-window hidden">
+        <div class="chat-header">
+            <span>Chatbot</span>
+            <button id="close-chat" class="close-button">×</button>
+        </div>
+        <div id="chat-messages" class="chat-messages">
+            <!-- Mensagens serão exibidas aqui -->
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Digite sua mensagem..." />
+            <button id="send-message">Enviar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
